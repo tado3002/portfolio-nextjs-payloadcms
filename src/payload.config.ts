@@ -16,6 +16,10 @@ import { Header } from './Header/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
+import { Skills } from './collections/Skills'
+import { Projects } from './collections/Projects'
+import { Icons } from './collections/Icons'
+import { Socials } from './collections/Socials'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -28,7 +32,7 @@ export default buildConfig({
       beforeLogin: ['@/components/BeforeLogin'],
       // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below and the import `BeforeDashboard` statement on line 15.
-      beforeDashboard: ['@/components/BeforeDashboard'],
+      // beforeDashboard: ['@/components/BeforeDashboard'],
     },
     importMap: {
       baseDir: path.resolve(dirname),
@@ -64,7 +68,7 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URI || '',
     },
   }),
-  collections: [Pages, Posts, Media, Categories, Users],
+  collections: [Pages, Posts, Media, Categories, Users, Skills, Projects, Icons, Socials],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins: [

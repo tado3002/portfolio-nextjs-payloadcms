@@ -37,6 +37,11 @@ const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
 
 const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
   ...defaultConverters,
+  text: ({ node }) => {
+    // Format bold biasanya bitmask 1
+    const isBold = (node.format & 1) === 1
+    return isBold ? <span className="font-bold text-blue-500">{node.text}</span> : node.text
+  },
   ...LinkJSXConverter({ internalDocToHref }),
   blocks: {
     banner: ({ node }) => <BannerBlock className="col-start-2 mb-4" {...node.fields} />,
@@ -45,7 +50,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
         className="col-start-1 col-span-3"
         imgClassName="m-0"
         {...node.fields}
-        captionClassName="mx-auto max-w-[48rem]"
+        captionClassName="mx-auto max-w-[52rem]"
         enableGutter={false}
         disableInnerContainer={true}
       />
