@@ -25,7 +25,9 @@ export async function Footer() {
               return (
                 <div key={social.id} className="flex flex-row gap-2 item-end">
                   <img src={iconUrl} className="w-6 h-6" />
-                  <span>{social.name} </span>
+                  <Link href={social.url} className="underline">
+                    {social.name}
+                  </Link>
                 </div>
               )
             })}

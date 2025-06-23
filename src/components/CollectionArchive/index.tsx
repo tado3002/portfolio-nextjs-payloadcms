@@ -27,7 +27,7 @@ export const CollectionArchive: React.FC<Props> = (props) => {
             if (typeof result === 'object' && result !== null) {
               return (
                 <div className="col-span-4" key={index}>
-                  <CardPost className="h-full" doc={result} relationTo="posts" showCategories />
+                  <CardPost className="h-fit" doc={result} relationTo="posts" showCategories />
                 </div>
               )
             }

@@ -7,6 +7,8 @@ import React, { Fragment } from 'react'
 import type { Post, Project, Skill } from '@/payload-types'
 
 import { Media } from '@/components/Media'
+import { Button } from '../ui/button'
+import { Book, BookOpen, Github } from 'lucide-react'
 
 export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title'>
 export type CardSkillData = Skill
@@ -107,18 +109,18 @@ export const CardPost: React.FC<{
   return (
     <article
       className={cn(
-        'border border-border rounded-lg overflow-hidden bg-card hover:cursor-pointer',
+        'border border-primary rounded-lg overflow-hidden bg-card hover:cursor-pointer',
         className,
       )}
       ref={card.ref}
     >
-      <div className="relative w-full ">
+      <div className="relative  w-full ">
         {!metaImage && <div className="">No image</div>}
         {metaImage && typeof metaImage !== 'string' && <Media resource={metaImage} size="33vw" />}
       </div>
-      <div className="p-4">
+      <div className="">
         {showCategories && hasCategories && (
-          <div className="uppercase text-sm mb-4">
+          <div className="p-4 border border-t-primary border-b-primary uppercase text-sm">
             {showCategories && hasCategories && (
               <div>
                 {categories?.map((category, index) => {
@@ -144,7 +146,7 @@ export const CardPost: React.FC<{
           </div>
         )}
         {titleToUse && (
-          <div className="prose">
+          <div className="prose p-4">
             <h3>
               <Link className="not-prose" href={href} ref={link.ref}>
                 {titleToUse}
@@ -152,7 +154,17 @@ export const CardPost: React.FC<{
             </h3>
           </div>
         )}
-        {description && <div className="mt-2">{description && <p>{sanitizedDescription}</p>}</div>}
+        {description && (
+          <div className="hidden md:block p-4 pt-0">
+            {description && <p>{sanitizedDescription}</p>}
+          </div>
+        )}
+        <div className="flex justify-end px-4 pb-4">
+          <Button variant={'outline'} className="border-blue-500">
+            <BookOpen />
+            <span className="ms-2">Read</span>
+          </Button>
+        </div>
       </div>
     </article>
   )
@@ -179,51 +191,55 @@ export const CardProject: React.FC<{
   return (
     <article
       className={cn(
-        'border border-border rounded-lg overflow-hidden bg-card hover:cursor-pointer',
+        'flex flex-col gap-4 border border-primary rounded-lg overflow-hidden bg-card hover:cursor-pointer',
         className,
       )}
     >
-      <div className="relative w-full ">
+      <div className="relative w-full border border-b-primary">
         {!image && <div className="">No image</div>}
         {image && typeof image !== 'string' && <Media resource={image} size="33vw" />}
       </div>
-      <div className="p-4">
-        {showCategories && skills && (
-          <div className="uppercase text-sm mb-4">
-            {showCategories && hasSkills && (
-              <div>
-                {skills?.map((skill, index) => {
-                  if (typeof skill === 'object') {
-                    const { name } = skill
+      {showCategories && skills && (
+        <div className="uppercase text-sm border px-4 pb-4 border-t-transparent border-b-primary">
+          {showCategories && hasSkills && (
+            <div>
+              {skills?.map((skill, index) => {
+                if (typeof skill === 'object') {
+                  const { name } = skill
 
-                    const skillName = name || 'Untitled skill'
+                  const skillName = name || 'Untitled skill'
 
-                    const isLast = index === skills.length - 1
+                  const isLast = index === skills.length - 1
 
-                    return (
-                      <Fragment key={index}>
-                        {skillName}
-                        {!isLast && <Fragment>, &nbsp;</Fragment>}
-                      </Fragment>
-                    )
-                  }
+                  return (
+                    <Fragment key={index}>
+                      {skillName}
+                      {!isLast && <Fragment>, &nbsp;</Fragment>}
+                    </Fragment>
+                  )
+                }
 
-                  return null
-                })}
-              </div>
-            )}
-          </div>
-        )}
-        {titleToUse && (
-          <div className="prose">
-            <h3>
-              <a className="not-prose" href={`${link}`}>
-                {titleToUse}
-              </a>
-            </h3>
-          </div>
-        )}
-        {description && <div className="mt-2">{description && <p>{sanitizedDescription}</p>}</div>}
+                return null
+              })}
+            </div>
+          )}
+        </div>
+      )}
+      {titleToUse && (
+        <div className="prose px-4">
+          <h3>
+            <a className="not-prose" href={`${link}`}>
+              {titleToUse}
+            </a>
+          </h3>
+        </div>
+      )}
+      {description && <div className="px-4">{description && <p>{sanitizedDescription}</p>}</div>}
+      <div className="flex justify-end px-4 pb-4">
+        <Button variant={'outline'} className="border-blue-500">
+          <Github />
+          <span className="ms-2">Link</span>
+        </Button>
       </div>
     </article>
   )
