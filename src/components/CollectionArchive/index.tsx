@@ -11,9 +11,9 @@ import {
 import { Icon } from '@/payload-types'
 
 export type Props = {
-  posts: CardPostData[]
-  skills: CardSkillData[]
-  projects: CardProjectData[]
+  posts?: CardPostData[]
+  skills?: CardSkillData[]
+  projects?: CardProjectData[]
 }
 
 export const CollectionArchive: React.FC<Props> = (props) => {

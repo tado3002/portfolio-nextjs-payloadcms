@@ -128,13 +128,6 @@ function useIsMobile(breakpoint = 768) {
   )
 }
 
-const navLinks = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-  { name: 'Projects', href: '/projects' },
-  { name: 'Contact', href: '/contact' },
-]
-
 // This hook manages sidebar open state via a ref and a forceUpdate trick
 function useSidebarOpen() {
   const openRef = React.useRef(false)
